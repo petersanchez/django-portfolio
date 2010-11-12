@@ -10,7 +10,7 @@ def project_context():
 
 
 def project_list(request, template_name, extra_context={}):
-    extra=project_context()
+    extra = project_context()
     extra.update(extra_context)
     return object_list(
         request,
@@ -21,7 +21,7 @@ def project_list(request, template_name, extra_context={}):
 
 
 def project_detail(request, slug, template_name, extra_context={}):
-    extra=project_context()
+    extra = project_context()
     extra.update(extra_context)
     return object_detail(
         request,
@@ -34,7 +34,7 @@ def project_detail(request, slug, template_name, extra_context={}):
 
 
 def category_detail(request, slug, template_name, extra_context={}):
-    extra=project_context()
+    extra = project_context()
     extra.update(extra_context)
     return object_detail(
         request,
@@ -47,7 +47,7 @@ def category_detail(request, slug, template_name, extra_context={}):
 
 
 def category_list(request, template_name, extra_context={}):
-    extra=project_context()
+    extra = project_context()
     extra.update(extra_context)
     return object_list(
         request,
@@ -58,7 +58,7 @@ def category_list(request, template_name, extra_context={}):
 
 
 def skill_detail(request, slug, template_name, extra_context={}):
-    extra=project_context()
+    extra = project_context()
     extra.update(extra_context)
     return object_detail(
         request,

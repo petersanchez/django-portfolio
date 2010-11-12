@@ -3,8 +3,8 @@ from django.db import models
 
 class Project(models.Model):
     name = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=50, unique=True)
-    url = models.URLField(blank=True, null=True)
+    slug = models.SlugField(max_length=120, unique=True)
+    url = models.URLField(verify_exists=False, blank=True, null=True)
     pull_quote = models.TextField(blank=True, null=True)
     short_description = models.TextField()
     description = models.TextField()
@@ -21,7 +21,8 @@ class Project(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('portfolio.views.project_detail', (), {'slug': str(self.slug), })
+        return ('portfolio_project_detail', (), {'slug': str(self.slug),})
+
 
 class Skill(models.Model):
     name = models.CharField(max_length=50)
@@ -35,11 +36,12 @@ class Skill(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('portfolio.views.skill_detail', (), {'slug': str(self.slug), })
+        return ('portfolio_skill_detail', (), {'slug': str(self.slug),})
+
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=50, unique=True)
+    slug = models.SlugField(max_length=120, unique=True)
     position = models.PositiveIntegerField()
 
     class Meta:
@@ -50,7 +52,8 @@ class Category(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('portfolio.views.category_detail', (), {'slug': str(self.slug), })
+        return ('portfolio_category_detail', (), {'slug': str(self.slug),})
+
 
 class ProjectFile(models.Model):
     project = models.ForeignKey('Project')
@@ -62,6 +65,7 @@ class ProjectFile(models.Model):
 
     def get_absolute_url(self):
         return self.file.url
+
 
 class ProjectImage(models.Model):
     project = models.ForeignKey('Project')

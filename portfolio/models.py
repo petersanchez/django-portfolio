@@ -19,7 +19,7 @@ class Project(models.Model):
     active = ProjectActiveManager()
 
     class Meta:
-        get_latest_by = '-id'
+        get_latest_by = 'id'
         ordering = ['-start_date', '-end_date', ]
 
     def __unicode__(self):
@@ -27,7 +27,7 @@ class Project(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('portfolio_project_detail', (), {'slug': str(self.slug),})
+        return ('portfolio_project_detail', (str(self.slug),))
 
 
 class Skill(models.Model):
@@ -42,7 +42,7 @@ class Skill(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('portfolio_skill_detail', (), {'slug': str(self.slug),})
+        return ('portfolio_skill_detail', (str(self.slug),))
 
 
 class Category(models.Model):
@@ -58,7 +58,7 @@ class Category(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('portfolio_category_detail', (), {'slug': str(self.slug),})
+        return ('portfolio_category_detail', (str(self.slug),))
 
 
 class ProjectFile(models.Model):

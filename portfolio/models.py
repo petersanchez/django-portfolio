@@ -1,4 +1,5 @@
 from django.db import models
+from managers import ProjectActiveManager
 
 
 class Project(models.Model):
@@ -12,8 +13,13 @@ class Project(models.Model):
     end_date = models.DateField(blank=True, null=True)
     category = models.ForeignKey('Category')
     skills = models.ManyToManyField('Skill')
+    is_active = models.BooleanField(default=True)
+
+    objects = models.Manager()
+    active = ProjectActiveManager()
 
     class Meta:
+        get_latest_by = '-id'
         ordering = ['-start_date', '-end_date', ]
 
     def __unicode__(self):

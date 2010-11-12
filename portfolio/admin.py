@@ -1,7 +1,13 @@
 from django.contrib import admin
 from portfolio.models import *
 
-admin.site.register(Project)
+
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = ('name', 'url', 'is_active',)
+    list_editable = ('is_active',)
+
+
+admin.site.register(Project, ProjectAdmin)
 admin.site.register(Skill)
 admin.site.register(Category)
 admin.site.register(ProjectFile)

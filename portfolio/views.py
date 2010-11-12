@@ -9,6 +9,17 @@ def project_context():
     }
 
 
+def project_list(request, template_name, extra_context={}):
+    extra=project_context()
+    extra.update(extra_context)
+    return object_list(
+        request,
+        template_name=template_name,
+        extra_context=extra,
+        queryset=Project.objects.all(),
+    )
+
+
 def project_detail(request, slug, template_name, extra_context={}):
     extra=project_context()
     extra.update(extra_context)

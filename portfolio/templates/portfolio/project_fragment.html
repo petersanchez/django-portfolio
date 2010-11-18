@@ -8,7 +8,7 @@
   {% endif %}
   <ul class="skills">
     {% for skill in project.skills.all %}
-    <li><a href="{% url skill_detail skill.slug %}">{{ skill }}</a></li>
+    <li><a href="{% url portfolio_skill_detail skill.slug %}">{{ skill }}</a></li>
     {% endfor %}
   </ul>
 

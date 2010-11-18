@@ -2,10 +2,21 @@ from django.contrib import admin
 from portfolio.models import *
 
 
+class ProjectImageInline(admin.StackedInline):
+    model = ProjectImage
+    fields = ('image', 'desc',)
+
+
+class ProjectFileInline(admin.StackedInline):
+    model = ProjectFile
+    fields = ('file', 'desc',)
+
+
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('name', 'url', 'is_active',)
     list_editable = ('is_active',)
     prepopulated_fields = {'slug': ('name',),}
+    inlines = (ProjectImageInline, ProjectFileInline)
 
 
 class CategoryAdmin(admin.ModelAdmin):

@@ -1,19 +1,43 @@
+import os
 from distutils.core import setup
 
-long_description = open('readme').read()
+project_name = 'portfolio'
+long_description = open('README.txt').read()
+
+# Idea from django-registration setup.py
+packages, data_files = [], []
+root_dir = os.path.dirname(__file__)
+if root_dir:
+    os.chdir(root_dir)
+
+for dirpath, dirnames, filenames in os.walk(project_name):
+    # Ignore dirnames that start with '.'
+    for i, dirname in enumerate(dirnames):
+        if dirname.startswith('.'):
+            del dirnames[i]
+    if '__init__.py' in filenames:
+        pkg = dirpath.replace(os.path.sep, '.')
+        if os.path.altsep:
+            pkg = pkg.replace(os.path.altsep, '.')
+        packages.append(pkg)
+    elif filenames:
+        prefix = dirpath[(len(project_name) + 1):]
+        for f in filenames:
+            data_files.append(os.path.join(prefix, f))
 
 setup(
     name='django-portfolio',
-    version=__import__('portfolio').__version__,
-    package_dir={'portfolio': 'portfolio'},
-    packages=['portfolio',],
+    version=__import__(project_name).__version__,
+    package_dir={project_name: project_name},
+    packages=packages,
+    package_data={project_name: data_files},
     description='Django app to a web based portfolio.',
     author='Peter Sanchez',
     author_email='petersanchez@gmail.com',
     license='BSD License',
     url='http://github.com/petersanchez/django-portfolio/',
     long_description=long_description,
-    platforms=["any"],
+    platforms=['any'],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
